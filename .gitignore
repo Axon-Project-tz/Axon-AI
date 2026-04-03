@@ -1,0 +1,29 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environment variables
+.env
+
+# Database
+*.sqlite3
+
+# Logs and outputs
+logs/
+*.log
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Data
+cli/sessions/*.json
+vector_store/
