@@ -49,64 +49,156 @@ class Config:
             "name": "Chat",
             "model_id": "meta-llama-3.1-8b-instruct",
             "style": "deepseek",
-            "accent": "#3B82F6",  # Blue
-            "description": "Casual conversation, fast replies"
+            "accent": "#3B82F6",
+            "description": "Casual conversation, fast replies",
+            "capabilities": {
+                "vision": False,
+                "audio": False,
+                "thinking": False,
+                "context_window": 131072,
+                "size_gb": "~5GB Q4"
+            },
+            "sampling": {
+                "temperature": 0.7,
+                "top_p": 0.9,
+                "top_k": 40,
+                "repeat_penalty": 1.1
+            }
         },
         {
             "id": 2,
             "name": "Vision",
             "model_id": "qwen2.5-vl-7b-instruct",
             "style": "deepseek",
-            "accent": "#22C55E",  # Green
-            "description": "Image reading and analysis"
+            "accent": "#22C55E",
+            "description": "Image reading and analysis",
+            "capabilities": {
+                "vision": True,
+                "audio": False,
+                "thinking": False,
+                "context_window": 32768,
+                "size_gb": "~5GB Q4"
+            },
+            "sampling": {
+                "temperature": 0.6,
+                "top_p": 0.9,
+                "top_k": 40,
+                "repeat_penalty": 1.05
+            }
         },
         {
             "id": 3,
             "name": "Coding",
             "model_id": "qwen2.5-coder-32b-instruct",
             "style": "deepseek",
-            "accent": "#A855F7",  # Purple
-            "description": "Best open source coding model"
+            "accent": "#A855F7",
+            "description": "Best open source coding model",
+            "capabilities": {
+                "vision": False,
+                "audio": False,
+                "thinking": False,
+                "context_window": 131072,
+                "size_gb": "~20GB Q4"
+            },
+            "sampling": {
+                "temperature": 0.2,
+                "top_p": 0.95,
+                "top_k": 40,
+                "repeat_penalty": 1.05
+            }
         },
         {
             "id": 4,
             "name": "Reasoning",
             "model_id": "qwen/qwq-32b",
             "style": "deepseek",
-            "accent": "#F59E0B",  # Amber
-            "description": "Deep thinking and logic"
+            "accent": "#F59E0B",
+            "description": "Deep thinking and logic",
+            "capabilities": {
+                "vision": False,
+                "audio": False,
+                "thinking": True,
+                "context_window": 131072,
+                "size_gb": "~20GB Q4"
+            },
+            "sampling": {
+                "temperature": 0.6,
+                "top_p": 0.95,
+                "top_k": 40,
+                "repeat_penalty": 1.0
+            }
         },
         {
             "id": 5,
             "name": "Unrestricted",
             "model_id": "dolphin3.0-llama3.1-8b",
             "style": "wormgpt",
-            "accent": "#EF4444",  # Red
-            "description": "No filter, light and fast"
+            "accent": "#EF4444",
+            "description": "No filter, light and fast",
+            "capabilities": {
+                "vision": False,
+                "audio": False,
+                "thinking": False,
+                "context_window": 131072,
+                "size_gb": "~5GB Q4"
+            },
+            "sampling": {
+                "temperature": 0.8,
+                "top_p": 0.95,
+                "top_k": 50,
+                "repeat_penalty": 1.1,
+                "min_p": 0.05
+            }
         },
         {
             "id": 6,
             "name": "Unrestricted+",
             "model_id": "dolphin-2.9.2-mixtral-8x22b",
             "style": "wormgpt",
-            "accent": "#991B1B",  # Dark Red
-            "description": "No filter, smarter but slower"
+            "accent": "#991B1B",
+            "description": "No filter, smarter but slower",
+            "capabilities": {
+                "vision": False,
+                "audio": False,
+                "thinking": False,
+                "context_window": 65536,
+                "size_gb": "~65GB Q4 (requires high VRAM or CPU offload)"
+            },
+            "sampling": {
+                "temperature": 0.8,
+                "top_p": 0.95,
+                "top_k": 50,
+                "repeat_penalty": 1.1
+            }
         },
         {
             "id": 7,
             "name": "Roblox",
             "model_id": "r1-distill-qwen-14b-roblox-luau",
             "style": "deepseek",
-            "accent": "#FF6B35",  # Roblox Orange
-            "description": "Roblox game dev — Luau scripting & Studio"
+            "accent": "#FF6B35",
+            "description": "Roblox game dev — Luau scripting & Studio",
+            "capabilities": {
+                "vision": False,
+                "audio": False,
+                "thinking": True,
+                "context_window": 65536,
+                "size_gb": "~9GB Q4"
+            },
+            "sampling": {
+                "temperature": 0.3,
+                "top_p": 0.9,
+                "top_k": 40,
+                "repeat_penalty": 1.05
+            }
         },
         {
             "id": 8,
             "name": "Gemma 4 E2B",
             "model_id": "gemma4:e2b",
             "style": "gemma4",
-            "accent": "#00BFA5",  # Teal/Cyan
-            "description": "7.2 GB • Lightweight / Edge / On-device (Text, Image, Audio) • Context: 128K",
+            "accent": "#00BFA5",
+            "description": "7.2 GB — Lightweight / Edge / On-device (Text, Image, Audio)",
             "capabilities": {
                 "vision": True,
                 "audio": True,
@@ -117,7 +209,8 @@ class Config:
             "sampling": {
                 "temperature": 1.0,
                 "top_p": 0.95,
-                "top_k": 64
+                "top_k": 64,
+                "repeat_penalty": 1.0
             }
         },
         {
@@ -125,8 +218,8 @@ class Config:
             "name": "Gemma 4 26B",
             "model_id": "gemma4:26b",
             "style": "gemma4",
-            "accent": "#3D5AFE",  # Indigo/Teal Darker
-            "description": "18 GB • Workstation / Frontier Intelligence (Text, Image) • Context: 256K",
+            "accent": "#3D5AFE",
+            "description": "18 GB — Workstation / Frontier Intelligence (Text, Image)",
             "capabilities": {
                 "vision": True,
                 "audio": False,
@@ -137,7 +230,8 @@ class Config:
             "sampling": {
                 "temperature": 1.0,
                 "top_p": 0.95,
-                "top_k": 64
+                "top_k": 64,
+                "repeat_penalty": 1.0
             }
         }
     ]

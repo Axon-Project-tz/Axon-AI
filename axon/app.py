@@ -230,10 +230,13 @@ def api_chat():
         temp_val = sampling.get("temperature", 0.7)
         top_p_val = sampling.get("top_p", None)
         top_k_val = sampling.get("top_k", None)
+        repeat_penalty_val = sampling.get("repeat_penalty", None)
+        min_p_val = sampling.get("min_p", None)
         
         for chunk in stream_chat(
             history, model_id, system_prompt, base_url=lm_url,
-            temperature=temp_val, top_p=top_p_val, top_k=top_k_val
+            temperature=temp_val, top_p=top_p_val, top_k=top_k_val,
+            repeat_penalty=repeat_penalty_val, min_p=min_p_val
         ):
             # Parse out the token to collect it
             import json as _json

@@ -11,7 +11,7 @@ _UNRESTRICTED_SLOTS = frozenset((5, 6, 7))
 
 # Any slot the user manually selected (not Chat/slot 1) is considered locked.
 # Auto-routing only upgrades from slot 1 — it never overrides an explicit user choice.
-_LOCKED_SLOTS = frozenset((2, 3, 4, 5, 6, 7))
+_LOCKED_SLOTS = frozenset((2, 3, 4, 5, 6, 7, 8, 9))
 
 # ── Pattern compilations ──────────────────────────────
 

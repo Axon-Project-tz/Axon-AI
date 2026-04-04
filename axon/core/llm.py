@@ -24,7 +24,7 @@ def _get_client(base_url=None):
     )
 
 
-def stream_chat(messages, model_id, system_prompt, base_url=None, temperature=0.7, top_p=None, top_k=None):
+def stream_chat(messages, model_id, system_prompt, base_url=None, temperature=0.7, top_p=None, top_k=None, repeat_penalty=None, min_p=None):
     """
     Stream a chat completion from LM Studio.
     Yields SSE-formatted strings: 'data: {"token": "..."}'\n\n'
@@ -41,10 +41,18 @@ def stream_chat(messages, model_id, system_prompt, base_url=None, temperature=0.
     }
     if top_p is not None:
         create_kwargs["top_p"] = top_p
+    if repeat_penalty is not None:
+        create_kwargs["frequency_penalty"] = repeat_penalty
     
     # Pass extra specific params for models like Gemma 4
+    extra_body = {}
     if top_k is not None:
-        create_kwargs["extra_body"] = {"top_k": top_k}
+        extra_body["top_k"] = top_k
+    if min_p is not None:
+        extra_body["min_p"] = min_p
+    
+    if extra_body:
+        create_kwargs["extra_body"] = extra_body
 
 
     try:
