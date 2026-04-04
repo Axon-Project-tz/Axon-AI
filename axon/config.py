@@ -99,5 +99,45 @@ class Config:
             "style": "deepseek",
             "accent": "#FF6B35",  # Roblox Orange
             "description": "Roblox game dev — Luau scripting & Studio"
+        },
+        {
+            "id": 8,
+            "name": "Gemma 4 E2B",
+            "model_id": "gemma4:e2b",
+            "style": "gemma4",
+            "accent": "#00BFA5",  # Teal/Cyan
+            "description": "7.2 GB • Lightweight / Edge / On-device (Text, Image, Audio) • Context: 128K",
+            "capabilities": {
+                "vision": True,
+                "audio": True,
+                "thinking": True,
+                "context_window": 131072,
+                "size_gb": 7.2
+            },
+            "sampling": {
+                "temperature": 1.0,
+                "top_p": 0.95,
+                "top_k": 64
+            }
+        },
+        {
+            "id": 9,
+            "name": "Gemma 4 26B",
+            "model_id": "gemma4:26b",
+            "style": "gemma4",
+            "accent": "#3D5AFE",  # Indigo/Teal Darker
+            "description": "18 GB • Workstation / Frontier Intelligence (Text, Image) • Context: 256K",
+            "capabilities": {
+                "vision": True,
+                "audio": False,
+                "thinking": True,
+                "context_window": 262144,
+                "size_gb": 18.0
+            },
+            "sampling": {
+                "temperature": 1.0,
+                "top_p": 0.95,
+                "top_k": 64
+            }
         }
     ]

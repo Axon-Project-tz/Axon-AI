@@ -183,6 +183,15 @@ def api_chat():
     system_prompt = custom_prompt if custom_prompt else get_system_prompt(routed_slot_id)
     lm_url = db_settings.get("lm_studio_url", Config.LM_STUDIO_URL)
 
+    # Model capabilities & sampling
+    capabilities = slot.get("capabilities", {}) if slot else {}
+    sampling = slot.get("sampling", {}) if slot else {}
+    
+    # ── Gemma 4 Thinking Mode injection ──
+    if capabilities.get("thinking", False):
+        if "<|think|>" not in system_prompt:
+            system_prompt = "<|think|>\n" + system_prompt
+
     # Memory context injection — append stored memories to system prompt
     if _get_toggle("memory"):
         mem_context = get_memory_context()
@@ -217,7 +226,15 @@ def api_chat():
     full_response = []
 
     def generate():
-        for chunk in stream_chat(history, model_id, system_prompt, base_url=lm_url):
+        # Inject custom sampling params
+        temp_val = sampling.get("temperature", 0.7)
+        top_p_val = sampling.get("top_p", None)
+        top_k_val = sampling.get("top_k", None)
+        
+        for chunk in stream_chat(
+            history, model_id, system_prompt, base_url=lm_url,
+            temperature=temp_val, top_p=top_p_val, top_k=top_k_val
+        ):
             # Parse out the token to collect it
             import json as _json
             modified_chunk = chunk
@@ -229,6 +246,11 @@ def api_chat():
                 elif "done" in parsed:
                     # Save full assistant message to DB
                     assistant_text = "".join(full_response)
+                    
+                    # Strip thinking blocks from history for multi-turn
+                    from core.agent import strip_think_blocks
+                    assistant_text = strip_think_blocks(assistant_text)
+                    
                     if assistant_text:
                         c = get_connection()
                         c.execute(

@@ -61,8 +61,10 @@ def _detect_language(code, suggested_filename=""):
 # ── Think-block and fence stripping ───────────────────
 
 def strip_think_blocks(text):
-    """Remove <think>...</think> reasoning blocks from text."""
-    return re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE).strip()
+    """Remove <think>...</think> and <|channel>thought...<channel|> reasoning blocks from text."""
+    text = re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE).strip()
+    text = re.sub(r"<\|channel\|>thought\n[\s\S]*?<\|channel\|>", "", text, flags=re.IGNORECASE).strip()
+    return text
 
 
 def strip_code_fences(text):

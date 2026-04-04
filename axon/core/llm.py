@@ -24,7 +24,7 @@ def _get_client(base_url=None):
     )
 
 
-def stream_chat(messages, model_id, system_prompt, base_url=None, temperature=0.7, top_p=None):
+def stream_chat(messages, model_id, system_prompt, base_url=None, temperature=0.7, top_p=None, top_k=None):
     """
     Stream a chat completion from LM Studio.
     Yields SSE-formatted strings: 'data: {"token": "..."}'\n\n'
@@ -41,6 +41,11 @@ def stream_chat(messages, model_id, system_prompt, base_url=None, temperature=0.
     }
     if top_p is not None:
         create_kwargs["top_p"] = top_p
+    
+    # Pass extra specific params for models like Gemma 4
+    if top_k is not None:
+        create_kwargs["extra_body"] = {"top_k": top_k}
+
 
     try:
         response = client.chat.completions.create(**create_kwargs)

@@ -27,3 +27,5 @@ logs/
 # Data
 cli/sessions/*.json
 vector_store/
+# Archives
+*.zip
